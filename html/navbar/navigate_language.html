@@ -1,0 +1,54 @@
+<li class="nav-item dropdown"
+		ng-if="lang.available && lang.available.length > 1">
+
+	<!-- Language selected -->
+	<a id="dropdown-menu-language" 
+	   href="#" 
+	   class="nav-link dropdown-toggle"  
+	   role="button" 
+	   data-bs-toggle="dropdown" 
+	   aria-expanded="false">
+
+	  <!-- Image  -->
+	  <img class="me-1" height="22" alt="flag" 
+	       ng-src="{{app.commonPath+'media/image/countries/'+lang.available[lang.index].img}}">
+
+	  <!-- Language local name -->
+	  <span class="text-capitalize text-small-caps">
+	    {{lang.available[lang.index].local}}
+	  </span>
+	</a>
+
+	<!-- Dropdown menu -->
+	<ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" 
+	    aria-labelledby="dropdown-menu-language">
+
+	  <!-- Language items -->
+	  <li data-lang-id="{{x.id}}"
+	      class="dropdown-item cursor-pointer"
+	      ng-click="changeLanguage($event)"
+	      ng-repeat="x in lang.available" 
+	      ng-if="x.valid && $index != lang.index"
+	      data-bs-toggle="collapse" 
+	      data-bs-target=".navbar-collapse.show">
+
+	    <!-- Language item content -->
+	    <div class="language-item-content d-inline-block text-start">
+
+	      <!-- Image  -->
+	      <img class="me-1" height="22" alt="flag"
+	           ng-src="{{app.commonPath+'media/image/countries/'+x.img}}">
+
+	      <!-- Language english name -->
+	      <span class="text-capitalize">
+	        {{x.name}}
+	      </span>
+
+	      <!-- Language local name -->
+	      <span ng-if="x.name != x.local">
+	        ({{x.local}})
+	      </span>
+	    </div>
+	  </li>
+	</ul>
+</li>

@@ -1,0 +1,24 @@
+header {min-height: 56px;}
+footer {min-height: 86px;}
+
+.shopping-item {
+  top: 0;
+  left: 15px;
+  right: auto;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 25px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.navbar .nav-link.active {
+	text-decoration: underline;
+	cursor: default;
+}
+@media (min-width: 768px) {
+  .shopping-item {
+    left: auto;
+    right: 0;
+  }
+}

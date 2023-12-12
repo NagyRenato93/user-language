@@ -1,0 +1,20 @@
+[
+	{
+    "id":"de",
+    "name":"german",
+    "local":"deutsch",
+    "img": "deu.png"
+  },
+  {
+    "id":"en",
+    "name":"english",
+    "img": "usa.png"
+  },
+  {
+    "id":"hu",
+    "type":"east",
+    "name":"hungarian",
+    "local":"magyar",
+    "img": "hun.png"
+  }
+]

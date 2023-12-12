@@ -1,0 +1,136 @@
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-dark"
+		 ng-class="{'navbar-expand-md': state.group !== 'user',
+		 						'navbar-expand-sm': state.group === 'user'}">
+
+	<!-- Container -->
+  <div class="container-fluid">
+
+		<!-- Logo -->
+    <a class="navbar-brand" href="">
+			<i class="fa-brands fa-slack fa-2xl"></i>
+			<span class="ms-1 text-capitalize text-small-caps">
+				{{'menu' | translate:lang.data}}
+			</span>
+		</a>
+
+    <!-- Hamburger icon -->
+    <button class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbar_content" 
+            aria-controls="navbar_content" 
+            aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content -->
+    <div id="navbar_content" 
+				 class="collapse navbar-collapse mt-3"
+				 ng-class="{'mt-md-0': state.group !== 'user',
+		 								'mt-sm-0': state.group === 'user'}">
+		
+			<!-- Navbar content LEFT -->
+      <ul class="navbar-nav me-auto"
+					ng-switch="state.group">
+
+				<!-- Back -->
+				<li class="nav-item" 
+						ng-switch-when="user">
+					<a class="nav-link" 
+						 ui-sref="{{state.prevEnabled}}" 
+						 ui-sref-active="active"
+						 data-bs-toggle="collapse" 
+             data-bs-target=".navbar-collapse.show">
+						<i class="fa-solid fa-right-long fa-rotate-180 me-1"></i>
+						<span class="text-capitalize text-small-caps">
+							{{'back' | translate:lang.data}}
+						</span>
+					</a>
+				</li>
+
+				<!-- Default -->
+				<li class="nav-item"
+						ng-switch-default>
+					<ul class="navbar-nav">
+
+						<!-- Home -->
+						<li class="nav-item">
+							<a class="nav-link" 
+								 ui-sref="home" 
+								 ui-sref-active="active"
+								 data-bs-toggle="collapse" 
+          		   data-bs-target=".navbar-collapse.show">
+								<i class="fa-solid fa-home me-1"></i>
+								<span class="text-capitalize text-small-caps">
+									{{'home_page' | translate:lang.data}}
+								</span>
+							</a>
+						</li>
+
+						<!-- Page 1 -->
+						<li class="nav-item">
+							<a class="nav-link" 
+								 ui-sref="page1" 
+								 ui-sref-active="active"
+								 data-bs-toggle="collapse" 
+								 data-bs-target=".navbar-collapse.show">
+								<i class="fa-solid fa-images me-1"></i>
+								<span class="text-capitalize text-small-caps">
+									{{'page' | translate:lang.data}}
+								</span>
+								<span>1</span>
+							</a>
+						</li>
+					
+						<!-- Page 2 -->
+						<li class="nav-item">
+							<a class="nav-link" 
+								 ui-sref="page2" 
+								 ui-sref-active="active"
+								 data-bs-toggle="collapse" 
+								 data-bs-target=".navbar-collapse.show">
+								<i class="fa-solid fa-road me-1"></i>
+								<span class="text-capitalize text-small-caps">
+									{{'page' | translate:lang.data}}
+								</span>
+								<span>2</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+
+			<!-- Navbar content CENTER -->
+      <ul class="navbar-nav mx-auto"></ul>
+
+			<!-- Navbar content RIGHT -->
+      <ul class="navbar-nav ms-auto">
+
+				<!-- User -->
+				<ng-navbar-user></ng-navbar-user>
+
+				<!-- Shopping cart -->
+				<li class="nav-item me-2"
+						ng-if="user.id">
+					<a class="nav-link position-relative" 
+						 ui-sref="shopping_cart" 
+						 ui-sref-active="active"
+						 data-bs-toggle="collapse" 
+						 data-bs-target=".navbar-collapse.show">
+						<i class="fa-solid fa-cart-shopping fa-2xl me-1"></i>
+						<div class="shopping-item position-absolute text-center text-white bg-primary">
+							{{shoppingCart.length}}
+						</div>
+						<span class="text-small-caps d-md-none">
+							{{'shopping_cart' | translate:lang.data | capitalize}}
+						</span>
+					</a>
+				</li>
+
+				<!-- Language -->
+				<ng-navbar-language></ng-navbar-language>
+			</ul>
+		</div>
+  </div>
+</nav>
