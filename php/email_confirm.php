@@ -16,7 +16,7 @@ use \Document\Tag as Tag;
 parse_str($_SERVER['QUERY_STRING'], $args);
 
 // Set environment
-require_once('../../../common/php/environment.php');
+require_once('../../common/php/environment.php');
 
 // Check url query
 if (!isset($args['l']) || 

@@ -6,7 +6,7 @@ use \Util\Util as Util;
 use \Database\Database as Database;
 
 // Set environment
-require_once('../../../common/php/environment.php');
+require_once('../../common/php/environment.php');
 
 // Get arguments
 $args = Util::getArgs();

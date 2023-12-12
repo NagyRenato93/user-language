@@ -8,7 +8,7 @@ use \Language\Language as Language;
 use \PHPMailer\Email as Email;
 
 // Set environment
-require_once('../../../common/php/environment.php');
+require_once('../../common/php/environment.php');
 
 // Get arguments
 $args = Util::getArgs();
