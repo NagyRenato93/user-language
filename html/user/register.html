@@ -27,7 +27,7 @@
 								 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
 						<span class="fw-bold text-danger">*</span>
 						<i class="fa-solid fa-user me-1"></i>
-						<span class="text-capitalize">név:</span>
+						<span class="text-capitalize">{{'name' | translate:lang.data}}:</span>
 					</label>
 
 					<!-- Input name -->
@@ -35,18 +35,19 @@
 						<div class="input-group">
 
 							<!-- Input name -->
-							<input id="name" 
+							<input id="name"
+										 name="name" 
 										 type="text"
-										 placeholder="név"
 										 class="form-control form-control-sm"
-										 spellcheck="false" 
-										 autocomplete="off" 
-										 required
-										 maxlength="100">
+									   ng-model="model.name"
+									   ng-init="model.name=model.showName()"
+									   ng-trim="false"
+										 disabled>
 
 							<!-- Button toggle -->
 							<button id="name_detail_toggle"
-											class="btn btn-sm btn-outline-secondary bg-white border-secondary-subtle text-muted" 
+											class="btn btn-sm btn-outline-secondary bg-white 
+														 border-secondary-subtle text-muted btnClickEffect" 
 											type="button">
 								<i class="fa-regular fa-circle-up fa-rotate-180"></i>
 							</button>
@@ -63,22 +64,30 @@
 						<!-- Label -->
 						<label for="prefix_name" 
 									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-							<span class="ms-1 text-capitalize">előtag:</span>
+							<span class="ms-1">
+								{{'prefix_name' | translate:lang.data | capitalize}}:
+							</span>
 						</label>
 						
 						<!-- Input prefix name -->
 						<div class="col-11 col-md-7 position-relative">
-							<input id="prefix_name" 
+							<input id="prefix_name"
+										 name="prefix_name" 
 										 type="text"
-										 placeholder="előtag"
-										 class="form-control form-control-sm"
-										 spellcheck="false" 
-										 autocomplete="off"
-										 maxlength="20">
+										 ng-attr-placeholder="{{('prefix_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 maxlength="20"
+									 	 ng-model="model.prefix_name"
+									 	 ng-init="model.prefix_name=null"
+										 ng-change="nameChanged()"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon>
 						</div>
-
-						<!-- Empty column -->
-						<div class="col-1 pt-1"></div>
 					</div>
 
 					<!-- First name -->
@@ -88,19 +97,31 @@
 						<label for="first_name" 
 									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
 							<span class="fw-bold text-danger">*</span>
-							<span class="ms-1 text-capitalize">keresztnév:</span>
+							<span class="ms-1">
+								{{'first_name' | translate:lang.data | capitalize}}:
+							</span>
 						</label>
 
 						<!-- Input first name -->
 						<div class="col-11 col-md-7 position-relative">
-							<input id="first_name" 
+							<input id="first_name"
+										 name="first_name" 
 										 type="text"
-										 placeholder="keresztnév"
-										 class="form-control form-control-sm"
-										 spellcheck="false" 
-										 autocomplete="off"
-										 required
-										 maxlength="50">
+										 ng-attr-placeholder="{{('first_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 required
+									 	 maxlength="50"
+									 	 ng-model="model.first_name"
+									 	 ng-init="model.first_name=null"
+										 ng-change="nameChanged()"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon
+									 	 ng-check-mark>
 						</div>
 					</div>
 
@@ -110,22 +131,30 @@
 						<!-- Label -->
 						<label for="middle_name" 
 									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-							<span class="ms-1 text-capitalize">másodiknév:</span>
+							<span class="ms-1">
+								{{'middle_name' | translate:lang.data | capitalize}}:
+							</span>
 						</label>
 
 						<!-- Input middle name -->
 						<div class="col-11 col-md-7 position-relative">
-							<input id="middle_name" 
+							<input id="middle_name"
+										 name="middle_name" 
 										 type="text"
-										 placeholder="másodiknév"
-										 class="form-control form-control-sm"
-										 spellcheck="false" 
-										 autocomplete="off"
-										 maxlength="50">
+										 ng-attr-placeholder="{{('middle_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 maxlength="50"
+									 	 ng-model="model.middle_name"
+									 	 ng-init="model.middle_name=null"
+										 ng-change="nameChanged()"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon>
 						</div>
-
-						<!-- Empty column -->
-						<div class="col-1 pt-1"></div>
 					</div>
 
 					<!-- Last name -->
@@ -135,44 +164,64 @@
 						<label for="last_name" 
 									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
 							<span class="fw-bold text-danger">*</span>
-							<span class="ms-1 text-capitalize">vezetéknév:</span>
+							<span class="ms-1 text-capitalize">
+								{{'last_name' | translate:lang.data | capitalize}}:
+							</span>
 						</label>
 
 						<!-- Input last name -->
 						<div class="col-11 col-md-7 position-relative">
-							<input id="last_name" 
+							<input id="last_name"
+										 name="last_name" 
 										 type="text"
-										 placeholder="vezetéknév"
-										 class="form-control form-control-sm"
-										 spellcheck="false" 
-										 autocomplete="off"
-										 required
-										 maxlength="50">
+										 ng-attr-placeholder="{{('last_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 required
+									 	 maxlength="50"
+									 	 ng-model="model.last_name"
+									 	 ng-init="model.last_name=null"
+										 ng-change="nameChanged()"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon
+									 	 ng-check-mark>
 						</div>
 					</div>
 
 					<!-- Suffix name -->
-					<div class="row input-row mb-2">
+					<div class="row input-row mb-4">
 
 						<!-- Label -->
 						<label for="suffix_name" 
 									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-							<span class="ms-1 text-capitalize">utótag</span>
+							<span class="ms-1 text-capitalize">
+								{{'suffix_name' | translate:lang.data | capitalize}}:
+							</span>
 						</label>
 
 						<!-- Input suffix name -->
 						<div class="col-11 col-md-7 position-relative">
-							<input id="suffix_name" 
+							<input id="suffix_name"
+										 name="suffix_name" 
 										 type="text"
-										 placeholder="utótag"
-										 class="form-control form-control-sm"
-										 spellcheck="false" 
-										 autocomplete="off" 
-										 maxlength="20">
+										 ng-attr-placeholder="{{('suffix_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 maxlength="20"
+									 	 ng-model="model.suffix_name"
+										 ng-change="nameChanged()"
+									 	 ng-init="model.suffix_name=null"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon>
 						</div>
-
-						<!-- Empty column -->
-						<div class="col-1 pt-1"></div>
 					</div>
 
 					<!-- Nick name -->
@@ -181,22 +230,29 @@
 						<!-- Label -->
 						<label for="nick_name" 
 									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-							<span class="ms-1 text-capitalize">becenév</span>
+							<span class="ms-1">
+								{{'nick_name' | translate:lang.data | capitalize}}:
+							</span>
 						</label>
 
 						<!-- Input nick name -->
 						<div class="col-11 col-md-7 position-relative">
-							<input id="nick_name" 
+							<input id="nick_name"
+										 name="nick_name" 
 										 type="text"
-										 placeholder="becenév"
-										 class="form-control form-control-sm"
-										 spellcheck="false" 
-										 autocomplete="off"
-										 maxlength="50">
+										 ng-attr-placeholder="{{('nick_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 maxlength="50"
+									 	 ng-model="model.nick_name"
+									 	 ng-init="model.nick_name=null"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon>
 						</div>
-
-						<!-- Empty column -->
-						<div class="col-1 pt-1"></div>
 					</div>
 
 					<!-- Dividing line -->
@@ -557,7 +613,6 @@
 				<!-- Test code -->
 				<ng-test-code></ng-test-code>
 			</form>
-
 
 			<!-- Footer -->
 			<ng-form-dialog-footer form-name="dataForm"
