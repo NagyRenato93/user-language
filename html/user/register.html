@@ -272,12 +272,21 @@
 
 					<!-- Input born -->
 					<div class="col-11 col-md-7">
-						<input id="born" 
+						<input id="born"
+									 name="born" 
 									 type="date"
 									 class="form-control form-control-sm"
+									 ng-class="{'input-disabled': !helper.editable}"
 									 spellcheck="false" 
 									 autocomplete="off" 
-									 required>
+									 required
+									 ng-model="model.born"
+									 ng-init="model.born=null"
+									 ng-disabled="!helper.editable"
+									 ng-trim="false"
+									 ng-disable-space
+									 ng-clear-icon
+									 ng-check-mark>
 					</div>
 				</div>
 
