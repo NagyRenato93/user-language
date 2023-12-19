@@ -273,9 +273,11 @@
 
 					<!-- Input born -->
 					<div class="col-11 col-md-7">
-						<input id="born" 
+						<input id="born"
+									 name="born" 
 									 type="date"
 									 class="form-control form-control-sm"
+									 ng-class="{'input-disabled': !helper.editable}"
 									 spellcheck="false" 
 									 autocomplete="off"
 									 max="{{helper.maxBorn}}"
