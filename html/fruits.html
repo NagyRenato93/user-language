@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="my-5 text-center text-capitalize text-small-caps text-muted fs-1">
+		{{'fruits' | translate:lang.data}}
+	</div>
+	<div class="row mt-3 mb-5 g-4
+							row-cols-1 row-cols-md-2 
+							row-cols-lg-3 row-cols-xxl-4">
+		<div class="col" 
+				 ng-repeat="fruit in fruits track by $index">
+			<div class="card shadow-bottom-end">
+				<img ng-src="./media/image/fruits/{{fruit}}.png" class="card-img-top" alt="fruit">
+				<div class="card-body">
+					<h5 class="card-title text-center text-capitalize text-small-caps mb-3">
+						{{fruit | translate:lang.data}}
+					</h5>
+					<p class="card-text">
+						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia cum voluptates nulla quos explicabo!
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<button type="button" 
+									class="btn btn-outline-success shadow-sm-bottom-end btnClickEffect"
+									style="min-width:150px">
+						{{'view' | translate:lang.data | capitalize}}
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

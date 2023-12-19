@@ -8,6 +8,7 @@
 		'app.common',
 		'app.language',
 		'app.user', 
+		'app.order', 
     'app.form'
   ])
 
@@ -23,13 +24,13 @@
 				abstract: true,
 				views: {
 					'@': {
-						templateUrl: './html/abstract/root.html'
+						templateUrl: './html/root.html'
 					},
 					'header@root': {
-						templateUrl: './html/navbar/navigate.html'
+						templateUrl: './html/header.html'
 					},
 					'footer@root': {
-						templateUrl: './html/template/footer.html'
+						templateUrl: './html/footer.html'
 					}
 				}
       })
@@ -38,10 +39,11 @@
 				parent: 'root',
 				templateUrl: './html/home.html'
 			})
-			.state('page1', {
-				url: '/page1',
+			.state('fruits', {
+				url: '/fruits',
 				parent: 'root',
-				templateUrl: './html/page1.html'
+				templateUrl: './html/fruits.html',
+				controller: 'fruitsController'
 			})
 			.state('page2', {
 				url: '/page2',
@@ -90,11 +92,12 @@
 				templateUrl: './html/user/email_change.html',
 				controller: 'userController'
 			})
-			.state('shopping_cart', {
-				url: '/shopping_cart',
+			.state('order', {
+				url: '/order',
 				parent: 'root',
-				group: 'shop',
-				templateUrl: './html/shop/shopping_cart.html'
+				group: 'order',
+				templateUrl: './html/order.html',
+				controller: 'orderController'
 			});
       
       $urlRouterProvider.otherwise('/');
@@ -106,83 +109,30 @@
     'trans',
     'lang',
 		'user',
-    (trans, lang, user) => {
+		'order',
+    (trans, lang, user, order) => {
 
       // Transaction events
-			trans.events({group:'user,shop'});
+			trans.events({group:'user,order'});
 
     	// Initialize language 
       lang.init();
 
 			// Initialize user
       user.init();
+
+			// Initialize order
+      order.init();
     }
   ])
 
-	// Shop factory
-  .factory('shop', [
-    '$rootScope',
-    '$timeout',
-    'util',
-    ($rootScope, $timeout, util) => {
-
-      // Set service
-      let service = {
-
-        // Initialize 
-        init: () => {
-          service.set(
-						window.localStorage.getItem(
-							service.getKey()), false);
-        },
-
-				// Get key
-				getKey: () => {
-					return [$rootScope.app.id, 
-									$rootScope.user.id, 
-									'shopping_cart'].join('_');
-				},
-        
-        // Set
-        set: (data, isSave=true) => {
-					if (!util.isArray(data)) data = [];
-          $rootScope.shoppingCart = data;
-          if(util.isBoolean(isSave) && isSave) service.save();
-          $timeout(() => $rootScope.$applyAsync());
-        },
-
-        // Get
-        get: (filter=null) => { 
-          if (util.isArray(filter))
-                return Object.keys($rootScope.shoppingCart)
-                             .filter((k) => !filter.includes(k))
-                             .reduce((o, k) => { 
-                                return Object.assign(o, {[k]:$rootScope.shoppingCart[k]})
-                              }, {});
-          else  return $rootScope.shoppingCart;
-        },
-        
-        // Default
-        def: () => {
-          return {
-						produktId   : null,
-						nameId      : null,
-						quantity 		: null,
-						price  			: null,
-						total 			: null,
-						valid 			: null
-					};
-        },
-
-        // Save
-        save: () => {
-          window.localStorage.setItem(
-						service.getKey(), $rootScope.shoppingCart);
-        }
-      };
-
-      // Return service
-      return service;
-  }])
+	// Fruits controller
+  .controller('fruitsController', [
+    '$scope',
+    'order',
+    function($scope, order) {
+			$scope.fruits = order.images();
+		}
+	]);
 
 })(window, angular);

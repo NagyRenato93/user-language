@@ -1,0 +1,127 @@
+<div class="container">
+
+	<div class="row">
+		<h3 class="text-center my-5">
+			<i class="fa-solid fa-cart-shopping fa-2xl me-1"></i>
+			<span class="text-capitalize text-small-caps">
+				{{'shopping_cart' | translate:lang.data}}
+			</span>
+		</h3>
+	</div>
+
+	<div class="row justify-content-center">
+		<table class="table table-bordered table-striped w-auto bg-white border shadow-sm-bottom-end">
+			<thead class="sticky-top table-dark">
+				<tr>
+					<th class="text-center align-middle">#</th>
+					<th class="text-center align-middle">
+						<input class="form-check-input" 
+									 type="checkbox"
+									 ng-init="toggle=true"
+									 ng-model="toggle" 
+									 ng-change="methods.toggle()"
+									 ng-disabled="!order.cart.length">
+					</th>
+					<th ng-repeat="key in order.label"
+							class="align-middle"
+							ng-class="key.thClass"
+							ng-switch="key.field">
+						<span ng-switch-when="product_id">
+							{{key.id | translate:lang.data | capitalize}}.
+						</span>
+						<span ng-switch-default>
+							{{key.id | translate:lang.data | capitalize}}
+						</span>
+					</th>
+					<th class="text-center align-middle">
+						{{'delete' | translate:lang.data | capitalize}}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in order.cart"
+						ng-if="order.cart.length">
+					<td class="text-end align-middle">{{$index+1}}</td>
+					<td class="text-center align-middle">
+						<input class="form-check-input" 
+									 type="checkbox" 
+									 ng-change="methods.changed()"
+									 ng-model="order.cart[$index].checked">
+					</td>
+					<td ng-repeat="key in order.label"
+							class="align-middle"
+							ng-class="key.tdClass"
+							ng-switch="key.field">
+						<span ng-switch-when="name_id">
+							<img ng-src="./media/image/fruits/{{item.name_id}}.png" 
+								 	 alt="img" class="me-1" height="32">
+							{{item[key.field] | translate:lang.data}}
+						</span>
+						<span ng-switch-when="quantity">
+							<input type="number"
+										 dir="rtl"
+										 ng-change="methods.changed()"
+										 ng-model="item[key.field]" 
+										 class="form-control form-control-sm text-end" 
+										 style="max-width:120px;"
+										 min="0" max="999">
+						</span>
+						<span ng-switch-default>
+							{{item[key.field] | numSep}}
+						</span>
+					</td>
+					<td class="align-middle text-center">
+						<button type="button"
+										data-id="{{$index}}"
+										ng-click="methods.delete($event)" 
+										class="btn btn-sm btn-danger btnClickEffect">
+							{{'delete' | translate:lang.data | capitalize}}
+						</button>
+					</td>
+				</tr>
+				<tr ng-if="!order.cart.length">
+					<td colspan="{{order.label.length+3}}" 
+							class="align-middle text-center">
+						{{'empty' | translate:lang.data}}
+					</td>
+				</tr>
+			</tbody>
+			<tfoot ng-if="order.cart.length" 
+						 class="border-0 bg-white">
+				<tr class="border-0">
+					<th colspan="{{order.label.length+1}}" 
+							class="text-end border-0">
+						{{'total' | translate:lang.data | capitalize}}:
+					</th>
+					<th class="text-end border-0">{{sumTotal | numSep}}</th>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	
+	<div class="row justify-content-center mt-4">
+		<button id="purchase"
+            type="button" 
+            class="btn btn-primary mb-2 mx-2 col-12 col-sm-auto 
+                   shadow-sm-bottom-end btnClickEffect"
+            style="min-width:150px;"
+            ng-click="methods.purchase($event)"
+						ng-disabled="!sumTotal">
+			<i class="fa-regular fa-credit-card"></i>
+      <span class="ms-1 btn-content">
+        {{'purchase' | translate:lang.data | capitalize}}
+      </span>
+    </button>
+    <a id="cancel"
+       type="button" 
+       class="btn btn-secondary mb-2 mx-2 col-12 col-sm-auto 
+              shadow-sm-bottom-end btnClickEffect"
+       style="min-width:150px;"
+       ui-sref="{{state.prevEnabled}}">
+      <i class="fa-solid fa-circle-xmark"></i>
+      <span class="ms-1 btn-content">
+        {{'cancel' | translate:$root.lang.data | capitalize}}
+      </span>
+    </a>
+	</div>
+</div>

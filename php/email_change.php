@@ -2,10 +2,12 @@
 declare(strict_types=1);
 
 // Using namespaces aliasing
-use \Util\Util as Util;
-use \Database\Database as Database;
-use \Language\Language as Language;
-use \PHPMailer\Email as Email;
+use Util\Util as Util;
+use Database\Database as Database;
+use Language\Language as Language;
+use Document\Document as Document;
+use PHPMailer\Email as Email;
+
 
 // Set environment
 require_once('../../common/php/environment.php');
@@ -103,9 +105,6 @@ if (!is_null($success)) {
 // Set random email verification code
 $args['code'] = bin2hex(random_bytes(16));
 
-// Set current date
-$curentDate = date("Y-m-d");
-
 // Set query
 $query 	= "UPDATE `user` 
 							SET `type`			= :type,
@@ -138,243 +137,119 @@ if (!$success['affectedRows']) {
 // Set language
 $lang 		= new Language($args['langId'], $args['langType']);
 $language = $lang->translate(array(
-							"informatics",
-							"email_changed",
-							"email_address",
-							"email_confirm",
-							"confirmation",
-							"new",
-							"old",
-							"dear",
-							"email_visit_and_confirm",
-							"email_do_not_reply",
-							"email_send_failed",
-							"email_crete_failed"
-						), true);
-$language['email_address'] = mb_strtolower($language['email_address'], 'utf-8');
-$userName = $lang->getUserName($result);
-$message  = "{$language["email_changed"]}!";
-$emailMsg = array(
-	"crete_error" => "{$language['email_crete_failed']}!\n{$message}",
-	"send_error" 	=> "{$language['email_send_failed']}!\n{$message}"
-);
+  "%email_new%" => "email_new",
+	"%email_previous%" => "email_previous",
+  "%email_confirm%" => "email_confirm",
+  "%confirmation%" => "confirmation",
+  "%email_changed%" => "email_changed",
+  "%informatics%" => "informatics",
+  "%dear%" => "dear",
+  "%register_email_address_changed%" => "register_email_address_changed",
+  "%email_visit_and_confirm%" => "email_visit_and_confirm",
+  "%email_do_not_reply%" => "email_do_not_reply",
+  "email_send_failed" => "email_send_failed",
+  "email_crete_failed" => "email_crete_failed",
+	"file_name_missing"=> "file_name_missing",
+	"file_not_found" => "file_not_found",
+	"file_unable_to_read" => "file_unable_to_read"
+));
+$language["%lang_id%"] = $args['langId'];
+$language["%user_name%"] = $lang->getUserName($result);
+$language["%current_date%"] = date("Y-m-d");
+$language["%current_year%"] = date("Y");
+$language["%email_old%"] = $args["email_current"];
+$language["%email_current%"] = $args["email"];
+$message = "{$language["%email_changed%"]}!\n{$language["%email_new%"]}: {$args["email"]}";
 $lang = null;
 
+// Create document
+$document = Document::createDocument('email_change_previous.html', $language, 'html/email');
 
-// Create new email
-$email 	= new Email(array(
-	"fromName" => "KERI " . $language["informatics"]
-));
+// Check has error
+if (!is_null($document["error"])) {
 
-// Check is not success
-if ($email->isError()) {
-
-	// Set error
-	Util::setError($emailMsg['crete_error'], $email);
+	// Get error message, and set error
+	Util::setError("{$document["error"]}\n{$message}");
 }
 
-// Create message
-$message  = <<<EOT
-<!DOCTYPE html>
-<html lang="{$args['langId']}">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email</title>
-  </head>
-  <body>
-    <table style="width:100%;border-collapse:collapse;">
-      <tbody>
-        <tr>
-          <td style="width:600px;" align="center">
-            <table style="width:600px;border:none;border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td style="background-color:#24a9ca;color:#fff" align="center">
-                    <h2 style="margin:10px 0;">
-                      <span>KERI {$language["informatics"]}<span>
-                    </h2>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table style="border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td style="width:600px;" align="center">
-                    <table style="width:560px;">
-                      <tbody>
-                        <tr>
-                          <td align="left" style="font-size:18px;font-weight:300;">
-                            <h4 style="line-height:36px;margin-bottom:0;margin-top:0;text-align:center;">
-                              {$language["email_changed"]}!
-                            </h4>
-                            <hr style="margin:10px 0 20px 0;">
-                            <div style="font-size:15px;font-weight:300;">
-                              <p style="font-size:18px;margin-bottom:20px">{$language["dear"]} <b>{$userName}</b>!</p>
-															<p><b>{$language['new']} {$language['email_address']}: </b>{$args['email']}</p>
-															<p style="margin-bottom:20px">{$language["email_visit_and_confirm"]}!</p>
-                            </div>
-                            <p style="font-size:12px;font-weight:300;margin-top:0">{$curentDate}</p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table style="width:600px;border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td align="center" 
-                      style="background-color:#385765;color:#f2f2f2;padding:5px;text-align:center;">
-                    <p style="margin:0;font-size:16px;font-weight:300;line-height:30px">
-                      {$language["email_do_not_reply"]}.
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>   
-  </body>
-</html>
-EOT;  
+// Create email
+$phpMailer = new Email(null, "KERI " . $language["%informatics%"]);
 
-// Set email, and send
-$email->set_subject($language["email_changed"]);
-$email->set_body($message);
-$email->AltBody = $message;
-$email->set_addressees($args['email_current']);
-$email->send_email();
-
-// Check is not sent
-if ($email->isError()) {
+// Check is not created
+if ($phpMailer->isError()) {
 
 	// Set error
-	Util::setError($emailMsg['send_error'], $email);
+	Util::setError("{$language['email_crete_failed']}!\n{$message}", $phpMailer);
 }
 
-// Close email
-$email = null;
+// Get image
+$imgFile = searchForFile('keri.png', 'media/image/logo');
 
-// Create new email
-$email 	= new Email(array(
-	"fromName" => "KERI " . $language["informatics"]
-));
+try {
 
-// Check is not success
-if ($email->isError()) {
+  // Check image found
+	if (!is_null($imgFile)) {
+  	$phpMailer->AddEmbeddedImage($imgFile, 'logoimg');
+	}
 
-	// Set error
-	Util::setError($emailMsg['crete_error'], $email);
+	// Add rest properties
+  $phpMailer->Subject = $language["%email_changed%"];
+  $phpMailer->Body 		= $document["content"];
+  $phpMailer->addAddress($args['email_current'], $language["%user_name%"]);
+
+	// Send email
+  $phpMailer->send();
+
+// Exception
+} catch (Exception $e) {
+
+  // Set error
+	Util::setError("{$language['email_send_failed']}!\n{$message}", $phpMailer);
 }
-
 
 // Set url, and query
 $u = "{$args['appUrl']}php/email_confirm.php";
 $l = Util::base64Encode($args['langId']);
 $t = Util::base64Encode($args['langType']);
+$e = Util::base64Encode($args['event']);
 $v = Util::base64Encode($args['appUrl']);
 $x = Util::base64Encode(strval($args['userId']));
 $y = Util::base64Encode($args['email']);
 $z = password_hash($args['code'], PASSWORD_DEFAULT);
+$language["%email_confirm_url%"] = 
+					"{$u}?l={$l}&t={$t}&e={$e}&v={$v}&x={$x}&y={$y}&z={$z}";
 
-// Create message
-$message  = <<<EOT
-<!DOCTYPE html>
-<html lang="{$args['langId']}">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email</title>
-  </head>
-  <body>
-    <table style="width:100%;border-collapse:collapse;">
-      <tbody>
-        <tr>
-          <td style="width:600px;" align="center">
-            <table style="width:600px;border:none;border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td style="background-color:#24a9ca;color:#fff" align="center">
-                    <h2 style="margin:10px 0;">KERI {$language["informatics"]}</h2>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table style="border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td style="width:600px;" align="center">
-                    <table style="width:560px;">
-                      <tbody>
-                        <tr>
-                          <td align="left" style="font-size:18px;font-weight:300;">
-                            <h4 style="line-height:36px;margin-bottom:0;margin-top:0;text-align:center;">
-                              {$language["email_changed"]}!
-                            </h4>
-                            <hr style="margin:10px 0 20px 0;">
-                            <div style="font-size:15px;font-weight:300;">
-                              <p style="font-size:18px;margin-bottom:20px">{$language["dear"]} <b>{$userName}</b>!</p>
-															<p><b>{$language['old']} {$language['email_address']}: </b>{$args['email_current']}</p>
-															<p><b>{$language['new']} {$language['email_address']}: </b>{$args['email']}</p>
-                            </div>
-														<hr style="margin:10px 0 20px 0;">
-                            <div style="font-size:18px;font-weight:300;margin-bottom:20px">
-															<h3>{$language['email_confirm']}!</h3>
-															<a href={$u}?l={$l}&t={$t}&v={$v}&x={$x}&y={$y}&z={$z}>{$language['confirmation']}</a>
-                            </div>
-                            <p style="font-size:12px;font-weight:300;margin-top:0">{$curentDate}</p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table style="width:600px;border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td align="center" 
-                      style="background-color:#385765;color:#f2f2f2;padding:5px;text-align:center;">
-                    <p style="margin:0;font-size:16px;font-weight:300;line-height:30px">
-                      {$language["email_do_not_reply"]}.
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>   
-  </body>
-</html>
-EOT;  
+// Create document
+$document = Document::createDocument('email_change_confirm.html', $language, 'html/email');
 
-// Set email, and send
-$email->set_subject($language["email_changed"]);
-$email->set_body($message);
-$email->AltBody = $message;
-$email->set_addressees($args['email']);
-$email->send_email();
+// Check has error
+if (!is_null($document["error"])) {
 
-// Check is not sent
-if ($email->isError()) {
+	// Get error message, and set error
+	Util::setError("{$document["error"]}\n{$message}", $phpMailer);
+}
 
-	// Set error
-	Util::setError($emailMsg['send_error'], $email);
+// Clear all addresses to
+$phpMailer->clearToAddresses();
+
+try {
+
+	// Add rest properties
+  $phpMailer->Body = $document["content"];
+  $phpMailer->addAddress($args['email'], $language["%user_name%"]);
+
+	// Send email
+  $phpMailer->send();
+
+// Exception
+} catch (Exception $e) {
+
+  // Set error
+	Util::setError("{$language['email_send_failed']}!\n{$message}");
 }
 
 // Close email
-$email = null;
-
-
+$phpMailer = null;
 
 // Set response
 Util::setResponse('email_changed');

@@ -1,0 +1,50 @@
+[
+  {
+    "checked": true,
+    "product_id": 1,
+    "name_id": "apple",
+    "quantity": 3,
+    "price": 6000,
+    "total": 18000
+  },
+  {
+    "checked": true,
+    "product_id": 21,
+    "name_id": "pear",
+    "quantity": 2,
+    "price": 1000,
+    "total": 2000
+  },
+  {
+    "checked": true,
+    "product_id": 666,
+    "name_id": "banana",
+    "quantity": 7,
+    "price": 500,
+    "total": 3500
+  },
+  {
+    "checked": true,
+    "product_id": 784,
+    "name_id": "mango",
+    "quantity": 5,
+    "price": 400,
+    "total": 2000
+  },
+  {
+    "checked": true,
+    "product_id": 4588,
+    "name_id": "watermelon",
+    "quantity": 1,
+    "price": 6000,
+    "total": 6000
+  },
+  {
+    "checked": true,
+    "product_id": 324,
+    "name_id": "orange",
+    "quantity": 2,
+    "price": 800,
+    "total": 1600
+  }
+]

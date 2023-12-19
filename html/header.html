@@ -1,17 +1,14 @@
 <!-- Navbar -->
-<nav class="navbar navbar-dark bg-dark"
-		 ng-class="{'navbar-expand-md': state.group !== 'user',
-		 						'navbar-expand-sm': state.group === 'user'}">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 
 	<!-- Container -->
   <div class="container-fluid">
 
 		<!-- Logo -->
-    <a class="navbar-brand" href="">
-			<i class="fa-brands fa-slack fa-2xl"></i>
-			<span class="ms-1 text-capitalize text-small-caps">
-				{{'menu' | translate:lang.data}}
-			</span>
+    <a class="navbar-brand p-0 cursor-default" href="">
+			<img ng-src="./media/image/logo/keri.png" height="36" alt="logo">
+			<span class="ms-1 text-capitalize">KERI</span>
+			<span>{{'informatics' | translate:lang.data | capitalize}}</span>
 		</a>
 
     <!-- Hamburger icon -->
@@ -26,16 +23,14 @@
 
     <!-- Navbar content -->
     <div id="navbar_content" 
-				 class="collapse navbar-collapse mt-3"
-				 ng-class="{'mt-md-0': state.group !== 'user',
-		 								'mt-sm-0': state.group === 'user'}">
-		
+				 class="collapse navbar-collapse mt-3 mt-lg-0">
+				 
 			<!-- Navbar content LEFT -->
       <ul class="navbar-nav me-auto"
 					ng-switch="state.group">
 
 				<!-- Back -->
-				<li class="nav-item" 
+				<li class="nav-item mx-1" 
 						ng-switch-when="user">
 					<a class="nav-link" 
 						 ui-sref="{{state.prevEnabled}}" 
@@ -50,12 +45,12 @@
 				</li>
 
 				<!-- Default -->
-				<li class="nav-item"
+				<li class="nav-item mx-1"
 						ng-switch-default>
 					<ul class="navbar-nav">
 
 						<!-- Home -->
-						<li class="nav-item">
+						<li class="nav-item mx-1">
 							<a class="nav-link" 
 								 ui-sref="home" 
 								 ui-sref-active="active"
@@ -68,23 +63,22 @@
 							</a>
 						</li>
 
-						<!-- Page 1 -->
-						<li class="nav-item">
+						<!-- Fruits -->
+						<li class="nav-item mx-1">
 							<a class="nav-link" 
-								 ui-sref="page1" 
+								 ui-sref="fruits" 
 								 ui-sref-active="active"
 								 data-bs-toggle="collapse" 
 								 data-bs-target=".navbar-collapse.show">
 								<i class="fa-solid fa-images me-1"></i>
 								<span class="text-capitalize text-small-caps">
-									{{'page' | translate:lang.data}}
+									{{'fruits' | translate:lang.data}}
 								</span>
-								<span>1</span>
 							</a>
 						</li>
 					
 						<!-- Page 2 -->
-						<li class="nav-item">
+						<li class="nav-item mx-1">
 							<a class="nav-link" 
 								 ui-sref="page2" 
 								 ui-sref-active="active"
@@ -101,9 +95,6 @@
 				</li>
 			</ul>
 
-			<!-- Navbar content CENTER -->
-      <ul class="navbar-nav mx-auto"></ul>
-
 			<!-- Navbar content RIGHT -->
       <ul class="navbar-nav ms-auto">
 
@@ -111,23 +102,8 @@
 				<ng-navbar-user></ng-navbar-user>
 
 				<!-- Shopping cart -->
-				<li class="nav-item me-2"
-						ng-if="user.id">
-					<a class="nav-link position-relative" 
-						 ui-sref="shopping_cart" 
-						 ui-sref-active="active"
-						 data-bs-toggle="collapse" 
-						 data-bs-target=".navbar-collapse.show">
-						<i class="fa-solid fa-cart-shopping fa-2xl me-1"></i>
-						<div class="shopping-item position-absolute text-center text-white bg-primary">
-							{{shoppingCart.length}}
-						</div>
-						<span class="text-small-caps d-md-none">
-							{{'shopping_cart' | translate:lang.data | capitalize}}
-						</span>
-					</a>
-				</li>
-
+				<ng-navbar-order></ng-navbar-order>
+				
 				<!-- Language -->
 				<ng-navbar-language></ng-navbar-language>
 			</ul>

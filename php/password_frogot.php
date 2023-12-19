@@ -1,11 +1,12 @@
 <?php
 declare(strict_types=1);
 
-// Using namespaces aliasing
-use \Util\Util as Util;
-use \Database\Database as Database;
-use \Language\Language as Language;
-use \PHPMailer\Email as Email;
+// Use namescapes aliasing
+use Util\Util as Util;
+use Database\Database as Database;
+use Language\Language as Language;
+use Document\Document as Document;
+use PHPMailer\Email as Email;
 
 // Set environment
 require_once('../../common/php/environment.php');
@@ -66,7 +67,7 @@ unset(
 $passwordNew = '1234Aa';
 
 // Creates a new password hash
-$password = password_hash($passwordNew, PASSWORD_DEFAULT);
+$passwordHash = password_hash($passwordNew, PASSWORD_DEFAULT);
 
 // Set query
 $query 	= "UPDATE `user` 
@@ -74,12 +75,9 @@ $query 	= "UPDATE `user`
 									`modified` = :modified
 						WHERE `id` = :id";
 
-// Set current date
-$curentDate = date("Y-m-d");
-
 // Execute query with arguments
 $success	= $db->execute($query, array(
-							"password"	=> $password,
+							"password"	=> $passwordHash,
 							"modified"	=> date("Y-m-d H:i:s"),
 							"id"				=> $result['id']
 						));
@@ -97,122 +95,75 @@ if (!$success['affectedRows']) {
 // Set language
 $lang 		= new Language($args['langId'], $args['langType']);
 $language = $lang->translate(array(
-							"informatics",
-							"password_changed",
-							"dear",
-							"password_new",
-							"password_change_it_soon",
-							"email_do_not_reply",
-							"email_send_failed",
-							"email_crete_failed"
-						), true);
-$userName = $lang->getUserName($result);
-$message  = "{$language["password_changed"]}!\n{$language["password_new"]}: {$passwordNew}";
-$emailMsg = array(
-	"crete_error" => "{$language['email_crete_failed']}!\n{$message}",
-	"send_error" 	=> "{$language['email_send_failed']}!\n{$message}"
-);
+    "%password_frogot%" => "password_frogot",
+		"%password_changed%" => "password_changed",
+    "%password_new%" => "password_new",
+    "%password_change_it_soon%" => "password_change_it_soon",
+    "%informatics%" => "informatics",
+    "%dear%" => "dear",
+		"%register_password_changed%" => "register_password_changed",
+    "%email_do_not_reply%" => "email_do_not_reply",
+    "email_send_failed" => "email_send_failed",
+    "email_crete_failed" => "email_crete_failed",
+		"file_name_missing"=> "file_name_missing",
+		"file_not_found" => "file_not_found",
+		"file_unable_to_read" => "file_unable_to_read"
+));
+$language["%lang_id%"] = $args['langId'];
+$language["%user_name%"] = $lang->getUserName($result);
+$language["%current_date%"] = date("Y-m-d");
+$language["%current_year%"] = date("Y");
+$language["%password_current%"] = $passwordNew;
+$message = "{$language["%password_changed%"]}!\n{$language["%password_new%"]}: {$passwordNew}";
 $lang = null;
 
-// Create new email
-$email 	= new Email(array(
-  "fromName" => "KERI " . $language["informatics"]
-));
+// Create document
+$document = Document::createDocument('password_frogot.html', $language, 'html/email');
 
-// Check is not success
-if ($email->isError()) {
+// Check has error
+if (!is_null($document["error"])) {
 
-	// Set error
-	Util::setError($emailMsg['crete_error'], $email);
+	// Get error message, and set error
+	Util::setError("{$document["error"]}\n{$message}");
 }
 
-// Create message
-$message  = <<<EOT
-<!DOCTYPE html>
-<html lang="{$args['langId']}">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email</title>
-  </head>
-  <body>
-    <table style="width:100%;border-collapse:collapse;">
-      <tbody>
-        <tr>
-          <td style="width:600px;" align="center">
-            <table style="width:600px;border:none;border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td style="background-color:#24a9ca;color:#fff" align="center">
-                    <h2 style="margin:10px 0;">KERI {$language["informatics"]}</h2>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table style="border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td style="width:600px;" align="center">
-                    <table style="width:560px;">
-                      <tbody>
-                        <tr>
-                          <td align="left" style="font-size:18px;font-weight:300;">
-                            <h4 style="line-height:36px;margin-bottom:0;margin-top:0;text-align:center;">
-                              {$language["password_changed"]}!
-                            </h4>
-                            <hr style="margin:10px 0 20px 0;">
-                            <div style="font-size:18px;font-weight:300;">
-                              <p style="margin-bottom:20px">{$language["dear"]} <b>{$userName}</b>!</p>
-                              <p style="margin-bottom:20px">{$language["password_new"]}: <b>{$passwordNew}</b></p>
-                            </div>
-                            <p style="font-size:12px;font-weight:300;margin-top:0">{$curentDate}</p>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table style="width:600px;border-collapse:collapse;border:none;padding:0;">
-              <tbody>
-                <tr>
-                  <td align="center" 
-                      style="background-color:#385765;color:#f2f2f2;padding:5px;text-align:center;">
-                    <p style="margin:0;font-size:16px;font-weight:300;line-height:30px">
-                      {$language["password_change_it_soon"]}!
-                    </p>
-                    <p style="margin:0;font-size:16px;font-weight:300;line-height:30px">
-                      {$language["email_do_not_reply"]}.
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>   
-  </body>
-</html>
-EOT;  
+// Create email
+$phpMailer = new Email(null, "KERI " . $language["%informatics%"]);
 
-// Set email, and send
-$email->set_subject($language["password_changed"]);
-$email->set_body($message);
-$email->AltBody = $message;
-$email->set_addressees($args['email']);
-$email->send_email();
-
-// Check is not sent
-if ($email->isError()) {
+// Check is not created
+if ($phpMailer->isError()) {
 
 	// Set error
-	Util::setError($emailMsg['send_error'], $email);
+	Util::setError("{$language['email_crete_failed']}!\n{$message}", $phpMailer);
+}
+
+// Get image
+$imgFile = searchForFile('keri.png', 'media/image/logo');
+
+try {
+
+	// Check image found
+	if (!is_null($imgFile)) {
+  	$phpMailer->AddEmbeddedImage($imgFile, 'logoimg');
+	}
+
+	// Add rest properties
+  $phpMailer->Subject = $language["%password_changed%"];
+  $phpMailer->Body 		= $document["content"];
+  $phpMailer->addAddress($args['email'], $language["%user_name%"]);
+
+	// Send email
+  $phpMailer->send();
+
+// Exception
+} catch (Exception $e) {
+
+  // Set error
+	Util::setError("{$language['email_send_failed']}!\n{$message}");
 }
 
 // Close email
-$email = null;
+$phpMailer = null;
 
 // Set response
 Util::setResponse('password_changed');

@@ -48,7 +48,8 @@
 							<button id="name_detail_toggle"
 											class="btn btn-sm btn-outline-secondary bg-white 
 														 border-secondary-subtle text-muted btnClickEffect" 
-											type="button">
+											type="button"
+											ng-click="methods.toogleName($event)">
 								<i class="fa-regular fa-circle-up fa-rotate-180"></i>
 							</button>
 						</div>
@@ -56,7 +57,7 @@
 				</div>
 
 				<!-- Name detail container -->
-				<div id="name_detail_container" class="overflow-hidden">
+				<div id="name_detail_container" class="overflow-hidden show">
 
 					<!-- Prefix name -->
 					<div class="row input-row mt-1 mb-2">
@@ -276,7 +277,9 @@
 									 type="date"
 									 class="form-control form-control-sm"
 									 spellcheck="false" 
-									 autocomplete="off" 
+									 autocomplete="off"
+									 max="{{helper.maxBorn}}"
+									 min="{{helper.minBorn}}" 
 									 required>
 					</div>
 				</div>
