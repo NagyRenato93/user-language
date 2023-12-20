@@ -23,9 +23,8 @@ footer {min-height: 90px;}
   }
 }
 
-#name_detail_container {
-  display: none;
-}
-#name_detail_container.show {
-  display: block;
+.name-detail-container {
+  /*height: 0;*/
+  -webkit-transition: height .3s ease-out;
+          transition: height .3s ease-out;
 }
