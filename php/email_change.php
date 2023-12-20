@@ -173,7 +173,7 @@ if (!is_null($document["error"])) {
 }
 
 // Create email
-$phpMailer = new Email(null, "KERI " . $language["%informatics%"]);
+$phpMailer = new Email("KERI " . $language["%informatics%"]);
 
 // Check is not created
 if ($phpMailer->isError()) {
