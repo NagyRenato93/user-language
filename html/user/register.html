@@ -45,223 +45,219 @@
 										 disabled>
 
 							<!-- Button toggle -->
-							<button id="name_detail_toggle"
-											class="btn btn-sm btn-outline-secondary bg-white 
+							<button class="btn btn-sm btn-outline-secondary bg-white
+														 name-detail-toggle-btn 
 														 border-secondary-subtle text-muted btnClickEffect" 
 											type="button"
 											ng-click="methods.toogleName($event)">
-								<i class="fa-regular fa-circle-up fa-rotate-180"></i>
+								<i class="fa-regular fa-circle-up fa-lg"></i>
 							</button>
 						</div>
 					</div>
 				</div>
 
 				<!-- Name detail container -->
-				<div class="name-detail-container overflow-hidden">
+				<div class="name-detail-container mb-2 ps-1 overflow-hidden show">
 
-					<!-- Name detail wrapper -->
-					<div class="name-detail-wrapper py-1">
+					<!-- Prefix name -->
+					<div class="row input-row mt-1 mb-2">
 
-						<!-- Prefix name -->
-						<div class="row input-row mt-1 mb-2">
+						<!-- Label -->
+						<label for="prefix_name" 
+									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
+							<span class="ms-1">
+								{{'prefix_name' | translate:lang.data | capitalize}}:
+							</span>
+						</label>
 
-							<!-- Label -->
-							<label for="prefix_name" 
-										 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-								<span class="ms-1">
-									{{'prefix_name' | translate:lang.data | capitalize}}:
-								</span>
-							</label>
-
-							<!-- Input prefix name -->
-							<div class="col-11 col-md-7 position-relative">
-								<input id="prefix_name"
-											 name="prefix_name" 
-											 type="text"
-											 ng-attr-placeholder="{{('prefix_name' | translate:lang.data)}}"
-										 	 class="form-control form-control-sm"
-										 	 ng-class="{'input-disabled': !helper.editable}"
-										 	 spellcheck="false" 
-										 	 autocomplete="off" 
-										 	 maxlength="20"
-										 	 ng-model="model.prefix_name"
-										 	 ng-init="model.prefix_name=null"
-											 ng-change="nameChanged()"
-										 	 ng-disabled="!helper.editable"
-										 	 ng-trim="false"
-										 	 ng-disable-space
-										 	 ng-clear-icon>
-							</div>
+						<!-- Input prefix name -->
+						<div class="col-11 col-md-7 position-relative">
+							<input id="prefix_name"
+										 name="prefix_name" 
+										 type="text"
+										 ng-attr-placeholder="{{('prefix_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 maxlength="20"
+									 	 ng-model="model.prefix_name"
+									 	 ng-init="model.prefix_name=null"
+										 ng-change="nameChanged()"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon>
 						</div>
-
-						<!-- First name -->
-						<div class="row input-row mb-2">
-
-							<!-- Label -->
-							<label for="first_name" 
-										 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-								<span class="fw-bold text-danger">*</span>
-								<span class="ms-1">
-									{{'first_name' | translate:lang.data | capitalize}}:
-								</span>
-							</label>
-
-							<!-- Input first name -->
-							<div class="col-11 col-md-7 position-relative">
-								<input id="first_name"
-											 name="first_name" 
-											 type="text"
-											 ng-attr-placeholder="{{('first_name' | translate:lang.data)}}"
-										 	 class="form-control form-control-sm"
-										 	 ng-class="{'input-disabled': !helper.editable}"
-										 	 spellcheck="false" 
-										 	 autocomplete="off" 
-										 	 required
-										 	 maxlength="50"
-										 	 ng-model="model.first_name"
-										 	 ng-init="model.first_name=null"
-											 ng-change="nameChanged()"
-										 	 ng-disabled="!helper.editable"
-										 	 ng-trim="false"
-										 	 ng-disable-space
-										 	 ng-clear-icon
-										 	 ng-check-mark>
-							</div>
-						</div>
-
-						<!-- Middle name -->
-						<div class="row input-row mb-2">
-
-							<!-- Label -->
-							<label for="middle_name" 
-										 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-								<span class="ms-1">
-									{{'middle_name' | translate:lang.data | capitalize}}:
-								</span>
-							</label>
-
-							<!-- Input middle name -->
-							<div class="col-11 col-md-7 position-relative">
-								<input id="middle_name"
-											 name="middle_name" 
-											 type="text"
-											 ng-attr-placeholder="{{('middle_name' | translate:lang.data)}}"
-										 	 class="form-control form-control-sm"
-										 	 ng-class="{'input-disabled': !helper.editable}"
-										 	 spellcheck="false" 
-										 	 autocomplete="off" 
-										 	 maxlength="50"
-										 	 ng-model="model.middle_name"
-										 	 ng-init="model.middle_name=null"
-											 ng-change="nameChanged()"
-										 	 ng-disabled="!helper.editable"
-										 	 ng-trim="false"
-										 	 ng-disable-space
-										 	 ng-clear-icon>
-							</div>
-						</div>
-
-						<!-- Last name -->
-						<div class="row input-row mb-2">
-
-							<!-- Label -->
-							<label for="last_name" 
-										 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-								<span class="fw-bold text-danger">*</span>
-								<span class="ms-1 text-capitalize">
-									{{'last_name' | translate:lang.data | capitalize}}:
-								</span>
-							</label>
-
-							<!-- Input last name -->
-							<div class="col-11 col-md-7 position-relative">
-								<input id="last_name"
-											 name="last_name" 
-											 type="text"
-											 ng-attr-placeholder="{{('last_name' | translate:lang.data)}}"
-										 	 class="form-control form-control-sm"
-										 	 ng-class="{'input-disabled': !helper.editable}"
-										 	 spellcheck="false" 
-										 	 autocomplete="off" 
-										 	 required
-										 	 maxlength="50"
-										 	 ng-model="model.last_name"
-										 	 ng-init="model.last_name=null"
-											 ng-change="nameChanged()"
-										 	 ng-disabled="!helper.editable"
-										 	 ng-trim="false"
-										 	 ng-disable-space
-										 	 ng-clear-icon
-										 	 ng-check-mark>
-							</div>
-						</div>
-
-						<!-- Suffix name -->
-						<div class="row input-row mb-4">
-
-							<!-- Label -->
-							<label for="suffix_name" 
-										 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-								<span class="ms-1 text-capitalize">
-									{{'suffix_name' | translate:lang.data | capitalize}}:
-								</span>
-							</label>
-
-							<!-- Input suffix name -->
-							<div class="col-11 col-md-7 position-relative">
-								<input id="suffix_name"
-											 name="suffix_name" 
-											 type="text"
-											 ng-attr-placeholder="{{('suffix_name' | translate:lang.data)}}"
-										 	 class="form-control form-control-sm"
-										 	 ng-class="{'input-disabled': !helper.editable}"
-										 	 spellcheck="false" 
-										 	 autocomplete="off" 
-										 	 maxlength="20"
-										 	 ng-model="model.suffix_name"
-											 ng-change="nameChanged()"
-										 	 ng-init="model.suffix_name=null"
-										 	 ng-disabled="!helper.editable"
-										 	 ng-trim="false"
-										 	 ng-disable-space
-										 	 ng-clear-icon>
-							</div>
-						</div>
-
-						<!-- Nick name -->
-						<div class="row input-row mb-3">
-
-							<!-- Label -->
-							<label for="nick_name" 
-										 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
-								<span class="ms-1">
-									{{'nick_name' | translate:lang.data | capitalize}}:
-								</span>
-							</label>
-
-							<!-- Input nick name -->
-							<div class="col-11 col-md-7 position-relative">
-								<input id="nick_name"
-											 name="nick_name" 
-											 type="text"
-											 ng-attr-placeholder="{{('nick_name' | translate:lang.data)}}"
-										 	 class="form-control form-control-sm"
-										 	 ng-class="{'input-disabled': !helper.editable}"
-										 	 spellcheck="false" 
-										 	 autocomplete="off" 
-										 	 maxlength="50"
-										 	 ng-model="model.nick_name"
-										 	 ng-init="model.nick_name=null"
-										 	 ng-disabled="!helper.editable"
-										 	 ng-trim="false"
-										 	 ng-disable-space
-										 	 ng-clear-icon>
-							</div>
-						</div>
-
-						<!-- Dividing line -->
-						<hr class="text-muted">
 					</div>
+
+					<!-- First name -->
+					<div class="row input-row mb-2">
+
+						<!-- Label -->
+						<label for="first_name" 
+									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
+							<span class="fw-bold text-danger">*</span>
+							<span class="ms-1">
+								{{'first_name' | translate:lang.data | capitalize}}:
+							</span>
+						</label>
+
+						<!-- Input first name -->
+						<div class="col-11 col-md-7 position-relative">
+							<input id="first_name"
+										 name="first_name" 
+										 type="text"
+										 ng-attr-placeholder="{{('first_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 required
+									 	 maxlength="50"
+									 	 ng-model="model.first_name"
+									 	 ng-init="model.first_name=null"
+										 ng-change="nameChanged()"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon
+									 	 ng-check-mark>
+						</div>
+					</div>
+
+					<!-- Middle name -->
+					<div class="row input-row mb-2">
+
+						<!-- Label -->
+						<label for="middle_name" 
+									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
+							<span class="ms-1">
+								{{'middle_name' | translate:lang.data | capitalize}}:
+							</span>
+						</label>
+
+						<!-- Input middle name -->
+						<div class="col-11 col-md-7 position-relative">
+							<input id="middle_name"
+										 name="middle_name" 
+										 type="text"
+										 ng-attr-placeholder="{{('middle_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 maxlength="50"
+									 	 ng-model="model.middle_name"
+									 	 ng-init="model.middle_name=null"
+										 ng-change="nameChanged()"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon>
+						</div>
+					</div>
+
+					<!-- Last name -->
+					<div class="row input-row mb-2">
+
+						<!-- Label -->
+						<label for="last_name" 
+									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
+							<span class="fw-bold text-danger">*</span>
+							<span class="ms-1 text-capitalize">
+								{{'last_name' | translate:lang.data | capitalize}}:
+							</span>
+						</label>
+
+						<!-- Input last name -->
+						<div class="col-11 col-md-7 position-relative">
+							<input id="last_name"
+										 name="last_name" 
+										 type="text"
+										 ng-attr-placeholder="{{('last_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 required
+									 	 maxlength="50"
+									 	 ng-model="model.last_name"
+									 	 ng-init="model.last_name=null"
+										 ng-change="nameChanged()"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon
+									 	 ng-check-mark>
+						</div>
+					</div>
+
+					<!-- Suffix name -->
+					<div class="row input-row mb-4">
+
+						<!-- Label -->
+						<label for="suffix_name" 
+									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
+							<span class="ms-1 text-capitalize">
+								{{'suffix_name' | translate:lang.data | capitalize}}:
+							</span>
+						</label>
+
+						<!-- Input suffix name -->
+						<div class="col-11 col-md-7 position-relative">
+							<input id="suffix_name"
+										 name="suffix_name" 
+										 type="text"
+										 ng-attr-placeholder="{{('suffix_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 maxlength="20"
+									 	 ng-model="model.suffix_name"
+										 ng-change="nameChanged()"
+									 	 ng-init="model.suffix_name=null"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon>
+						</div>
+					</div>
+
+					<!-- Nick name -->
+					<div class="row input-row mb-2">
+
+						<!-- Label -->
+						<label for="nick_name" 
+									 class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
+							<span class="ms-1">
+								{{'nick_name' | translate:lang.data | capitalize}}:
+							</span>
+						</label>
+
+						<!-- Input nick name -->
+						<div class="col-11 col-md-7 position-relative">
+							<input id="nick_name"
+										 name="nick_name" 
+										 type="text"
+										 ng-attr-placeholder="{{('nick_name' | translate:lang.data)}}"
+									 	 class="form-control form-control-sm"
+									 	 ng-class="{'input-disabled': !helper.editable}"
+									 	 spellcheck="false" 
+									 	 autocomplete="off" 
+									 	 maxlength="50"
+									 	 ng-model="model.nick_name"
+									 	 ng-init="model.nick_name=null"
+									 	 ng-disabled="!helper.editable"
+									 	 ng-trim="false"
+									 	 ng-disable-space
+									 	 ng-clear-icon>
+						</div>
+					</div>
+
+					<!-- Dividing line -->
+					<hr class="text-muted">
 				</div>
 
 				<!-- Born -->

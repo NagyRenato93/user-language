@@ -16,15 +16,27 @@ footer {min-height: 90px;}
 	text-decoration: underline;
 	cursor: default;
 }
+
+.name-detail-toggle-btn i.fa-circle-up {
+  -webkit-transition: all .3s ease-out;
+          transition: all .3s ease-out;
+    transform-origin: center;
+}
+.name-detail-container {
+  height: 0;
+  -webkit-transition: height .3s ease-out;
+          transition: height .3s ease-out;
+}
+.name-detail-container.show {
+  height: 465px;
+}
+
 @media (min-width: 768px) {
   .shopping-item {
     left: auto;
     right: 0;
   }
-}
-
-.name-detail-container {
-  /*height: 0;*/
-  -webkit-transition: height .3s ease-out;
-          transition: height .3s ease-out;
+  .name-detail-container.show {
+    height: 279px;
+  }
 }
