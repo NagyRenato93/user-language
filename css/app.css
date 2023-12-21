@@ -17,7 +17,7 @@ footer {min-height: 90px;}
 	cursor: default;
 }
 
-.name-detail-toggle-btn i.fa-circle-up {
+.name-detail-toggle-icon {
   -webkit-transition: all .3s ease-out;
           transition: all .3s ease-out;
     transform-origin: center;
@@ -28,7 +28,7 @@ footer {min-height: 90px;}
           transition: height .3s ease-out;
 }
 .name-detail-container.show {
-  height: 465px;
+  height: 453px;
 }
 
 @media (min-width: 768px) {
@@ -37,6 +37,6 @@ footer {min-height: 90px;}
     right: 0;
   }
   .name-detail-container.show {
-    height: 279px;
+    height: 267px;
   }
 }

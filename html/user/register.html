@@ -20,7 +20,7 @@
 						name="dataForm" novalidate>
 
 				<!-- Name -->
-				<div class="row input-row mt-1 mb-2">
+				<div class="row input-row mt-1 mb-0">
 
 					<!-- Label -->
 					<label for="name" 
@@ -32,6 +32,8 @@
 
 					<!-- Input name -->
 					<div class="col-11 col-md-7">
+
+						<!-- Input group -->
 						<div class="input-group">
 
 							<!-- Input name -->
@@ -39,25 +41,39 @@
 										 name="name" 
 										 type="text"
 										 class="form-control form-control-sm"
+										 spellcheck="false" 
+									 	 autocomplete="off"
 									   ng-model="model.name"
 									   ng-init="model.name=model.showName()"
 									   ng-trim="false"
 										 disabled>
 
 							<!-- Button toggle -->
-							<button class="btn btn-sm btn-outline-secondary bg-white
-														 name-detail-toggle-btn 
-														 border-secondary-subtle text-muted btnClickEffect" 
+							<button class="btn btn-sm name-detail-toggle-btn btn-primary
+														 rounded-start-1 shadow-sm-bottom-end btnClickEffect" 
 											type="button"
 											ng-click="methods.toogleName($event)">
-								<i class="fa-regular fa-circle-up fa-lg"></i>
+								<span class="name-detail-toggle-icon d-inline-block">
+									<i class="fa-regular fa-circle-up fa-lg"></i>
+								</span>
 							</button>
 						</div>
+					</div>
+
+					<!-- Checkmark -->
+					<div class="col-1 pt-1">
+						<span class="check-mark ms-1 fw-bold text-success"
+									ng-show="model.first_name && model.last_name">
+							&check;
+						</span>
 					</div>
 				</div>
 
 				<!-- Name detail container -->
 				<div class="name-detail-container mb-2 ps-1 overflow-hidden show">
+
+					<!-- Dividing line -->
+					<hr class="text-muted mt-2">
 
 					<!-- Prefix name -->
 					<div class="row input-row mt-1 mb-2">
@@ -226,7 +242,7 @@
 					</div>
 
 					<!-- Nick name -->
-					<div class="row input-row mb-2">
+					<div class="row input-row mb-0">
 
 						<!-- Label -->
 						<label for="nick_name" 
@@ -255,10 +271,10 @@
 									 	 ng-clear-icon>
 						</div>
 					</div>
-
-					<!-- Dividing line -->
-					<hr class="text-muted">
 				</div>
+
+				<!-- Dividing line -->
+				<hr class="text-muted">
 
 				<!-- Born -->
 				<div class="row input-row mb-0">
@@ -353,9 +369,7 @@
 						<input id="image" 
 									 type="file"
 									 accept="image/*"
-									 class="form-control form-control-sm d-none"
-									 spellcheck="false" 
-									 autocomplete="off">
+									 class="form-control form-control-sm d-none">
 
 						<!-- Show image -->
 						<label for="image">
@@ -414,6 +428,8 @@
 
 					<!-- Input group -->
 					<div class="col-11 col-md-7">
+
+						<!-- Input group -->
 						<div class="input-group position-relative">
 
 							<!-- Select phone code -->
