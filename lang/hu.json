@@ -37,6 +37,7 @@
   "email": "email",
   "email_address": "email cím",
   "email_rule": "email cím változtatás esetén, az új e-mail cím hitelesítése szükséges",
+  "email_register_rule": "email cím hitelesítése szükséges",
   "current": "jelenlegi",
   "new": "új",
   "old": "régi",
