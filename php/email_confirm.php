@@ -48,9 +48,10 @@ $language = $lang->translate(array(
 	"user_not_exist" => "user_not_exist",
 	"email_verification_code_invalid" => "email_verification_code_invalid",
 	"failed_increase_retries" => "failed_increase_retries",
-	"%registering_thanks%" => "registering_thanks",
+	"%register_thanks%" => "register_thanks",
 	"%email_confirmation_successful%" => "email_confirmation_successful",
 	"%email_confirmation_failed%" => "email_confirmation_faile",
+	"%email_confirm_short%" => "email_confirm_short",
 	"%informatics%" => "informatics",
   "%dear%" => "dear", 
 ));
@@ -101,7 +102,8 @@ $lang = null;
 //$result['email_verification_code'] = 'd58d79ee9efa344b5103dd873ef41a52';
 
 // Verify verification code
-if (!password_verify($result['email_verification_code'], $args['code'])) {
+if (is_null($result['email_verification_code']) ||
+		!password_verify($result['email_verification_code'], $args['code'])) {
 
 	// Set query
 	$query = 	"UPDATE `user` 

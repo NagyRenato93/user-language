@@ -83,7 +83,8 @@
   "email_changed": "email hat sich geändert",
   "email_new": "die neue email adresse",
   "email_visit_and_confirm" : "bitte besuchen sie diese email adresse und bestätigen sie sie",
-  "email_confirm": "bitte bestätigen sie ihre neue email adresse",
+  "email_confirm": "bitte bestätigen sie ihre email adresse",
+  "email_confirm_new": "bitte bestätigen sie ihre neue email adresse",
   "email_confirm_short": "bestätigung der email adresse",
   "email_confirmation_successful": "die bestätigung der email adresse war erfolgreich",
   "email_confirmation_failed": "email adresse konnte nicht bestätigt werden",
@@ -121,7 +122,11 @@
   "empty": "leer",
   "delete": "löschen",
   "delete_surely_item": "sie löschen das element sicherlich aus der liste",
-  "registering_thanks": "vielen dank für ihre registrierung auf unserer website",
+  "register_thanks": "vielen dank für ihre registrierung auf unserer website",
+  "register_failed": "die registrierung auf unserer website ist fehlgeschlagen",
+  "registration_successful": "registrierung erfolgreich",
+  "login_details": "login daten",
+  "login_details_keep_save": "bewahren sie ihre anmeldeinformationen an einem sicheren ort auf",
   "id": "id",
   "view": "sicht"
 }

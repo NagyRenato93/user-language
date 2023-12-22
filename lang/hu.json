@@ -83,7 +83,8 @@
   "email_new": "az új email cím",
   "email_previous": "az előző email cím",
   "email_visit_and_confirm" : "kérjük, keresse fel ezt az email címet és erősítse meg",
-  "email_confirm": "kérjük, erősítse meg új email címét",
+  "email_confirm": "kérjük, erősítse meg az email címét",
+  "email_confirm_new": "kérjük, erősítse meg új email címét",
   "email_confirm_short": "email cím megerősítése",
   "email_confirmation_successful": "az email cím megerősítése sikeres volt",
   "email_confirmation_failed": "nem sikerült megerősíteni az email címet",
@@ -121,7 +122,11 @@
   "empty": "üres",
   "delete": "töröl",
   "delete_surely_item": "biztosan törli az elemet a listáról",
-  "registering_thanks": "Köszönjük, hogy regisztrált weboldalunkra",
+  "register_thanks": "Köszönjük, hogy regisztrált weboldalunkra",
+  "register_failed": "nem sikerült regisztrálni weboldalunkra",
+  "registration_successful": "sikeres regisztráció",
+  "login_details": "bejelentkezesi adatok",
+  "login_details_keep_save": "tartsa biztonságos helyen bejelentkezési adatait",
   "id": "azon",
   "view": "megtekint"
 }

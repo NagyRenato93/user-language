@@ -352,7 +352,7 @@
 				</fieldset>
 
 				<!-- Image -->
-				<div class="row input-row mb-3">
+				<div class="row input-row mb-5">
 
 					<!-- Label -->
 					<div class="col-form-label col-form-label-sm col-md-4 text-md-end fw-semibold">
@@ -376,18 +376,18 @@
 									 ng-model="helper.image"
 									 ng-disabled="!helper.editable"
 									 file-input
-									 ng-clear-icon='{"top":"30px","left":"130px"}'>
+									 ng-clear-icon='{"top":"50px","left":"150px"}'>
 
 						<!-- Show image -->
 						<label for="image">
 							<div class="bg-img bg-img-cover overflow-hidden rounded-circle border 
 													d-flex align-items-center justify-content-center cursor-pointer"
-									 style="width:100px;min-width:100px;height:100px;"
+									 style="width:130px;height:130px;"
 									 ng-style="{'background-image':model.img_type?'url(data:'+model.img_type+';base64,'+model.img+')':(model.gender?'url('+app.commonPath+'media/image/blank/'+(model.gender==='F'?'fe':'')+'male-blank.webp)':'')}">
 								<span class="text-center text-muted"
 											ng-show="!model.img && !model.gender">
 									<i class="fa-solid fa-upload"></i><br>
-									<span style="font-size: 0.7rem;">Max: 64KB</span>
+									<span class="fs-sm">Max: 64KB</span>
 								</span>							
 							</div>
 						</label>
@@ -411,8 +411,15 @@
 						<select id="country"
 										name="country"
 										class="form-select form-select-sm text-capitalize pe-4"
-										autocomplete="off">
-							<option hidden disabled selected value>-- ország --</option>
+										autocomplete="off"
+										ng-model="model.country"
+										ng-init="model.country=null"
+										ng-change="methods.countryChanged()"
+										ng-options="x.country for x in helper.countries"
+										ng-clear-icon='{"right":"-8px"}'>
+							<option hidden disabled selected value>
+								-- {{'country' | translate:lang.data}} --
+							</option>
 						</select>
 					</div>
 				</div>
@@ -435,13 +442,18 @@
 						<!-- Input group -->
 						<div class="input-group position-relative">
 
-							<!-- Select phone code -->
+							<!-- Select country code -->
 							<span>+</span>
-							<select id="phone_code"
+							<select id="country_code"
+											name="country_code"
 											class="form-select form-select-sm ms-1"
 											autocomplete="off"
 											style="max-width:100px;"
-											disabled>
+											ng-model="model.country_code"
+											ng-init="model.country_code=null"
+											ng-options="x for x in helper.countryCodes"
+											ng-disabled="!helper.countryCodes || 
+																	 helper.countryCodes.length &lt; 2">
 							</select>
 
 							<!-- Input phone -->

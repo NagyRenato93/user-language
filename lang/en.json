@@ -83,7 +83,8 @@
   "email_new": "the new email address",
   "email_previous": "the previous email address",
   "email_visit_and_confirm" : "please visit this email address and confirm it",
-  "email_confirm": "please confirm your new email address",
+  "email_confirm": "please confirm your email address",
+  "email_confirm_new": "please confirm your new email address",
   "email_confirm_short": "confirmation of email address",
   "email_confirmation_successful": "email address confirmation was successful",
   "email_confirmation_failed": "failed to confirm email address",
@@ -121,7 +122,11 @@
   "empty": "empty",
   "delete": "delete",
   "delete_surely_item": "you surely delete the item from the list",
-  "registering_thanks": "thank you for registering on our website",
+  "register_thanks": "thank you for registering on our website",
+  "register_failed": "failed to register on our website",
+  "registration_successful": "registration successful",
+  "login_details": "login details",
+  "login_details_keep_save": "keep your login information in a safe place",
   "id": "id",
   "view": "view"
 }

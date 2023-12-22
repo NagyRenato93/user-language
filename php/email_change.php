@@ -103,7 +103,7 @@ if (!is_null($success)) {
 }
 
 // Set random email verification code
-$args['code'] = bin2hex(random_bytes(16));
+$args['email_verification_code'] = bin2hex(random_bytes(16));
 
 // Set query
 $query 	= "UPDATE `user` 
@@ -119,7 +119,7 @@ $success = $db->execute($query, array(
 	"type"			=> 'N',
 	"type_old"	=> $result['type'] === 'N' ? null : $result['type'],
 	"email"			=> $args['email'],
-	"code"			=> $args['code'],
+	"code"			=> $args['email_verification_code'],
 	"modified"	=> date("Y-m-d H:i:s"),
 	"id"				=> $args['userId']
 ));
@@ -139,7 +139,8 @@ $lang 		= new Language($args['langId'], $args['langType']);
 $language = $lang->translate(array(
   "%email_new%" => "email_new",
 	"%email_previous%" => "email_previous",
-  "%email_confirm%" => "email_confirm",
+  "%email_confirm_new%" => "email_confirm_new",
+	"%email_confirm_short%" => "email_confirm_short",
   "%confirmation%" => "confirmation",
   "%email_changed%" => "email_changed",
   "%informatics%" => "informatics",
@@ -215,7 +216,7 @@ $e = Util::base64Encode($args['event']);
 $v = Util::base64Encode($args['appUrl']);
 $x = Util::base64Encode(strval($args['userId']));
 $y = Util::base64Encode($args['email']);
-$z = password_hash($args['code'], PASSWORD_DEFAULT);
+$z = password_hash($args['email_verification_code'], PASSWORD_DEFAULT);
 $language["%email_confirm_url%"] = 
 					"{$u}?l={$l}&t={$t}&e={$e}&v={$v}&x={$x}&y={$y}&z={$z}";
 
