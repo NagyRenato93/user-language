@@ -125,6 +125,7 @@
   "register_thanks": "thank you for registering on our website",
   "register_failed": "failed to register on our website",
   "registration_successful": "registration successful",
+  "registration_failed": "registration failed",
   "login_details": "login details",
   "login_details_keep_save": "keep your login information in a safe place",
   "id": "id",

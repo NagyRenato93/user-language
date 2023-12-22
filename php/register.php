@@ -97,7 +97,7 @@ $db = null;
 if (!$result['affectedRows']) {
 
 	// Set error
-	Util::setError('register_failed');
+	Util::setError('registration_failed');
 }
 
 // Set language
@@ -192,6 +192,5 @@ $phpMailer = null;
 // Set response
 Util::setResponse(array(
 	"id"		=> $result['lastInsertId'],
-	"type"	=> $args['type'],
-	"msg" 	=> "registration_successful"
+	"type"	=> $args['type']
 ));
