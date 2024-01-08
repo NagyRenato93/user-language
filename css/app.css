@@ -2,15 +2,12 @@ header {min-height: 60px;}
 footer {min-height: 90px;}
 
 .shopping-item {
-  top: 0;
   left: 15px;
   right: auto;
   width: 25px;
   height: 25px;
-  border-radius: 50%;
   line-height: 25px;
   font-size: 12px;
-  font-weight: bold;
 }
 .navbar .nav-link.active {
 	text-decoration: underline;

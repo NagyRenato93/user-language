@@ -18,8 +18,14 @@
     '$urlRouterProvider', 
     ($stateProvider, $urlRouterProvider) => {
 
-      $stateProvider
+			// Set arguments for user states
+			let args = {
+				subFolder: 'html',
+				isContent: true,
+				isMinimize: true
+			};
 
+      $stateProvider
       .state('root', {
 				abstract: true,
 				views: {
@@ -39,58 +45,59 @@
 				parent: 'root',
 				templateUrl: './html/home.html'
 			})
-			.state('fruits', {
-				url: '/fruits',
+			.state('products', {
+				url: '/products',
 				parent: 'root',
-				templateUrl: './html/fruits.html',
-				controller: 'fruitsController'
-			})
-			.state('page2', {
-				url: '/page2',
-				parent: 'root',
-				templateUrl: './html/page2.html'
+				templateUrl: './html/products.html',
+				controller: 'productsController'
 			})
 			.state('login', {
 				url: '/login',
 				parent: 'root',
 				group: 'user',
-				templateUrl: './html/user/login.html',
+				templateProvider: ['file', file => file.get('login.html', args)],
 				controller: 'userController'
 			})
 			.state('register', {
 				url: '/register',
 				parent: 'root',
 				group: 'user',
-				templateUrl: './html/user/register.html',
+				templateProvider: ['file', file => file.get('register.html', args)],
 				controller: 'userController'
 			})
 			.state('profile', {
 				url: '/profile',
 				parent: 'root',
 				group: 'user',
-				templateUrl: './html/user/profile.html',
+				templateProvider: ['file', file => file.get('profile.html', args)],
 				controller: 'userController'
 			})
 			.state('password_frogot', {
 				url: '/password_frogot',
 				parent: 'root',
 				group: 'user',
-				templateUrl: './html/user/password_frogot.html',
+				templateProvider: ['file', file => file.get('password_frogot.html', args)],
 				controller: 'userController'
 			})
 			.state('password_change', {
 				url: '/password_change',
 				parent: 'root',
 				group: 'user',
-				templateUrl: './html/user/password_change.html',
+				templateProvider: ['file', file => file.get('password_change.html', args)],
 				controller: 'userController'
 			})
 			.state('email_change', {
 				url: '/email_change',
 				parent: 'root',
 				group: 'user',
-				templateUrl: './html/user/email_change.html',
+				templateProvider: ['file', file => file.get('email_change.html', args)],
 				controller: 'userController'
+			})
+			.state('email_confirm', {
+				url: '/email_confirm?e&i&l',
+				parent: 'root',
+				templateProvider: ['file', file => file.get('email_confirm.html', args)],
+				controller: 'emailConfirmController'
 			})
 			.state('order', {
 				url: '/order',
@@ -126,8 +133,8 @@
     }
   ])
 
-	// Fruits controller
-  .controller('fruitsController', [
+	// Products controller
+  .controller('productsController', [
     '$scope',
     'order',
     function($scope, order) {
