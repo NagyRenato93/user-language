@@ -13,27 +13,9 @@ footer {min-height: 90px;}
 	text-decoration: underline;
 	cursor: default;
 }
-
-.name-detail-toggle-icon {
-  -webkit-transition: all .3s ease-in-out;
-          transition: all .3s ease-in-out;
-    transform-origin: center;
-}
-.name-detail-container {
-  height: 0;
-  -webkit-transition: height .3s ease-in-out;
-          transition: height .3s ease-in-out;
-}
-.name-detail-container.show {
-  height: 453px;
-}
-
 @media (min-width: 768px) {
   .shopping-item {
     left: auto;
     right: 0;
-  }
-  .name-detail-container.show {
-    height: 267px;
   }
 }
