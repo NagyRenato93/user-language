@@ -126,7 +126,12 @@
       lang.init();
 
 			// Initialize user
-      user.init();
+      user.init({
+				isTestCode        : false,
+        isEmailConfirm    : false,
+        isPasswordConfirm	: false,
+				isSendEmail				: false
+			});
 
 			// Initialize order
       order.init();
