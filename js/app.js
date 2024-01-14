@@ -127,10 +127,18 @@
 
 			// Initialize user
       user.init({
-				isTestCode        : false,
-        isEmailConfirm    : false,
-        isPasswordConfirm	: false,
-				isSendEmail				: false
+				minAgeLimit         : 14,
+        isBornShowRule     	: false,
+        isPhoneShowRule     : false,
+        isPostcodeShowRule  : false,
+        isTestCode          : false,
+        isEmailConfirm      : false,
+        isEmailShowRule     : false,
+        isPasswordConfirm   : false,
+        isPasswordShowRule  : false,
+        isNameDetail        : false,
+        isSendEmail         : false,
+        isDividingPlusLine  : false
 			});
 
 			// Initialize order
